@@ -6,7 +6,8 @@ export default async function Home() {
   const popularMovies = await getPopularMovies();
   console.log(popularMovies);
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto px-4 md:px-0">
+      <h1 className="py-6">Liste des films populaires</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {popularMovies.results.map((movie: Movie) => (
           <MovieCard key={movie.id} movie={movie} />
