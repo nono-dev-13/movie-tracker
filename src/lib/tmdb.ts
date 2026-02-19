@@ -1,7 +1,7 @@
 import { Movie, TMDBResponse } from "@/types/tmdb";
 
-const API_KEY = process.env.TMDB_API_KEY;
-const BASE_URL = process.env.BASE_URL;
+const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
+const BASE_URL = "https://api.themoviedb.org/3";
 
 export async function getPopularMovies(): Promise<TMDBResponse<Movie>> {
   const res = await fetch(
@@ -24,6 +24,23 @@ export async function getMovieDetails(movieId: number): Promise<Movie> {
     const error = await res.text();
     console.log("Erreur:", error);
     throw new Error("Impossible de récupérer les détails du film");
+  }
+
+  return res.json();
+}
+
+export async function searchMovies(
+  query: string
+): Promise<TMDBResponse<Movie>> {
+  const url = `${BASE_URL}/search/movie?api_key=${API_KEY}&language=fr-FR&query=${encodeURIComponent(
+    query
+  )}`;
+  const res = await fetch(url);
+
+  if (!res.ok) {
+    const error = await res.text();
+    console.log("Erreur:", error);
+    throw new Error("Impossible de rechercher les films");
   }
 
   return res.json();
