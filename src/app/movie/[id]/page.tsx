@@ -1,6 +1,7 @@
 import { getMovieDetails } from "@/lib/tmdb";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
+import { WatchlistButton } from "@/components/WatchlistButton";
 
 export default async function MoviePage({
   params,
@@ -20,6 +21,11 @@ export default async function MoviePage({
         retour à la liste
       </Link>
       <h1>Détails du film {movie.id}</h1>
+      <WatchlistButton
+        movie_id={movie.id}
+        title={movie.title}
+        poster={movie.backdrop_path ?? ""}
+      />
     </div>
   );
 }
